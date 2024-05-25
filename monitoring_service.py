@@ -1,17 +1,17 @@
 from sensor import SensorFactory
 from sensor_monitor import SensorMonitor
 from logger import logger, log_types
+from constants import ALERT_SERVER_URL
 
-from datetime import datetime
 import json
 import asyncio
-from concurrent.futures import ProcessPoolExecutor
+import requests
 
 
 class SensorMonitoringService:
-    def __init__(self, config_file, alert_service):
+    def __init__(self, config_file, alert_services_url=ALERT_SERVER_URL):
         self.config_file = config_file
-        self.alert_service = alert_service
+        self.alert_services_url = alert_services_url
         self.sensor_monitors = []
         self.sensors = []
         self.load_configuration()
@@ -29,18 +29,21 @@ class SensorMonitoringService:
                 # check if the sensor type is legal, skip unknown sensors
                 if (sensor):
                     self.sensors.append(sensor)
-                    sensor_monitor = SensorMonitor(sensor, self.alert_service)
+                    sensor_monitor = SensorMonitor(sensor, self.alert_services_url)
                     self.sensor_monitors.append(sensor_monitor)
                 else:
-                    logger (f"Sensor uninitialized: {sensor_type}", log_type=log_types.WARNING)
+                    logger (f"Sensor not initialized: {sensor_type}", log_type=log_types.WARNING)
 
                 # consider case: no valid sensors in config
                 if (not self.sensors):
                     logger (f"No valid sensors to monitor. Terminating...", log_type=log_types.WARNING)
                     exit()
 
-    async def start_monitoring(self):
-        while True:
+    async def start_service(self):
+        try:
             tasks = [asyncio.create_task(sensor_monitor.start_monitoring()) for sensor_monitor in self.sensor_monitors]
             await asyncio.gather(*tasks)
+        except requests.ConnectionError:
+            # handle server stop or disconnection
+            logger(f"Alert server connection error. Exiting...")
 

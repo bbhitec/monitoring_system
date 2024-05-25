@@ -73,6 +73,12 @@ _Install additional dependencies:_</br>
 pip install -r requirements.txt
 ```
 
+_Update the necessary environments in ```.env``` locally_</br>
+_Use ```.env.template``` to see the used tokens_</br>
+```
+echo SLACK_WEBHOOK_URL = '<your url>' >> .env
+```
+
 _Run the main script:_</br>
 ```python
 python main.py
