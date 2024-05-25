@@ -1,14 +1,10 @@
 from sensor import Sensor
-# from .sensor_concretes import TemperatureSensor, HumiditySensor, PressureSensor
 from logger import logger, log_types
+from .constants_sensor import FP_RESOLUTION, BUS_DELAY
 
-from datetime import datetime
 import asyncio
 import random
-# from sensor import Sensor
 
-FP_RESOLUTION = 4       # floating point accuracy
-BUS_DELAY = 1.5         # general io bus pseudo-delay
 
 class TemperatureSensor(Sensor):
     def __init__(self, valid_range: [float]):

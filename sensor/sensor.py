@@ -11,5 +11,5 @@ class Sensor(ABC):
 
     @abstractmethod
     async def read_value(self) -> float:
-        """simulate the sensor read-out"""
+        """ simulate the sensor read-out """
         pass
