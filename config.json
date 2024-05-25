@@ -11,6 +11,10 @@
         {
             "type": "PressureSensor",
             "valid_range": [900, 1100]
+        },
+        {
+            "type": "UnfamiliarSensor",
+            "valid_range": [3, 10]
         }
     ]
 }
