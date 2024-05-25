@@ -12,15 +12,15 @@ A python-based service to monitor sensor data
 
 ## Features
 - Adhering SOLID principles
-- Factory design pattern for the sensors types
-- Asynchronous sensor data polling
+- Factory design pattern for the sensors types to separate creation from use
+- Basic event-loop asynchronous sensor data polling
 
 ## WIP
-- [ ] Alert service flavors/channels
-- [ ] Sensors factory polish
-- [ ] Unit testing
+- [x] Sensors factory polish
 - [ ] Inter service comms polish
-- [ ] Upgrade async mechanism?
+- [ ] Alert service flavors/channels
+- [ ] Unit testing
+- [ ] XX Upgrade async mechanism to a server?
 
 ### Badges
 ![](https://shields.io/badge/-python-ffe600?logo=python)
@@ -42,6 +42,7 @@ A python-based service to monitor sensor data
     - A dynamic configurations changes handling agent for a possible hot-swap of sensors
     - A defined or standard-compliant documentation on developer, technician, end user levels
 - Performance/Scalability
+    - The current async implememtation is a basic event-loop mechanism (if a certain sensor delays the read-out' for example, it will block the event loop). It can be prevented with some time-out feature or can further be upgraded to a subscriber model or a multi-threaded mechanism
     - Consider a mechanism (or 3rd party) metrics monitoring for reading latencies and response times
     - Consider cloud compute to handle large number of sensors with volume\performance pros and cons considerations and decoupling data collection and processing (e. g. using a message broker)
 - Alerts
