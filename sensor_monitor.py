@@ -6,7 +6,7 @@ import asyncio
 from typing import List
 from datetime import datetime
 
-READ_FREQUENCY = 0  # Monitor every READ_FREQUENCY seconds
+READ_FREQUENCY = 0  # monitor every READ_FREQUENCY seconds
 
 
 class SensorMonitor:
@@ -16,9 +16,13 @@ class SensorMonitor:
         self.alert_service = alert_service
 
     async def validate_sensor_data(self):
+        # read sensor data and test it
         value = await self.sensor.read_value()
+
         if not(self.sensor.valid_range[0] <= value <= self.sensor.valid_range[1]):
-            await self.alert_service.send_alert(f"Invalid data - {self.sensor.sensor_type}: {value} range[{self.sensor.valid_range[0]},{self.sensor.valid_range[1]}]")
+            # the alerting service will use any define notification channels (terminal, Slack...)
+            await self.alert_service.send_alert(
+                f"Invalid data - {self.sensor.sensor_type}: {value} range[{self.sensor.valid_range[0]},{self.sensor.valid_range[1]}]")
         else:
             logger(f"Value read from {self.sensor.sensor_type}: {value}", log_type=log_types.READING)
 

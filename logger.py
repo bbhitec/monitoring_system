@@ -13,6 +13,6 @@ log_headers = {
 }
 
 def logger(message, log_type = log_types.DEFAULT):
-    """separated local logger functionality"""
+    """ separated local logger helper functionality """
     dt = datetime.now()
     print(f"{log_headers[log_type]} [{dt}] {message}")
