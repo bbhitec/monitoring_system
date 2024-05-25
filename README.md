@@ -10,6 +10,8 @@ A python-based service to monitor sensor data
     - Receive alerts from the main server
     - Log the alert on desired channels
 
+    ![System Class Diagram](https://raw.githubusercontent.com/bbhitec/monitoring_system/main/mon_class.png)
+
 ## Features
 - Adhering SOLID principles
 - Factory design pattern for the sensors types to separate creation from use
@@ -32,7 +34,7 @@ A python-based service to monitor sensor data
 
 - Sensors
     - Using a diagnostics poll layer to test integrity of sensor data (Hardware\Firmware level)
-    - Provide a logger service to output the readouts to interface with UI's and APi's
+    - Provide a more robust logger service to output the readouts to interface with UI's and APi's
 - Security/Reliability
     - Provide a layer to secure the sensors communication
     - A saved-stated soft\hard reset mechanism for emergency system refresh in cases of emergency failure/outage
