@@ -1,29 +1,22 @@
-from logger import logger, log_types
+from notify import NotifyChannel
 
-import os
 import requests
-from pathlib import Path
-from dotenv import load_dotenv
 
-# load the environment to yse tokens
-env_path = Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
+class NotifySlackWebhookl(NotifyChannel):
+    def __init__(self, url):
+        self.headers = {"content-type": "application/json"}
+        self.url = url
 
-
-class NotifySlackWebhookl:
-    def notify(self, message):
-        url = os.environ['SLACK_WEBHOOK_URL']
-        headers = {"content-type": "application/json"}
+    async def notify(self, message):
         payload = {
-                "attachments": [
-                    {
-                        "fallback": "Plain-text summary of the attachment.",
-                        "color": "#f00",
-                        "text": message,
-                    }
-                ]
-            }
-        response = requests.post(url, json=payload, headers=headers)
+            "attachments": [
+                {
+                    "color": "#f00",
+                    "text": message,
+                }
+            ]
+        }
+        response = requests.post(self.url, json=payload, headers=self.headers)
 
         if response.status_code != 200:
             logger("Cannot reach Slack API", log_type=log_types.WARNING)
