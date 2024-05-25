@@ -6,7 +6,7 @@ A python-based service to monitor sensor data
     - Initializes corresponding sensors and valid ranges
     - Continuously reads and validates data
     - Notifies the Aler service upon invalid range
-- Alers service
+- Alerts service
     - Receive alerts from the main server
     - Log the alert on desired channels
 
