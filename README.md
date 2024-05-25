@@ -14,13 +14,12 @@ A python-based service to monitor sensor data
 - Adhering SOLID principles
 - Factory design pattern for the sensors types to separate creation from use
 - Basic event-loop asynchronous sensor data polling
+- Using flask server for REST communication between the sensors
+
 
 ## WIP
-- [x] Sensors factory polish
-- [ ] Inter service comms polish
-- [ ] Alert service flavors/channels
+- [ ] Alert service flavors/channels: Email
 - [ ] Unit testing
-- [ ] XX Upgrade async mechanism to a server?
 
 ### Badges
 ![](https://shields.io/badge/-python-ffe600?logo=python)
@@ -77,6 +76,11 @@ _Update the necessary environments in ```.env``` locally_</br>
 _Use ```.env.template``` to see the used tokens_</br>
 ```
 echo SLACK_WEBHOOK_URL = '<your url>' >> .env
+```
+
+_Run the alerting service server:_</br>
+```python
+python alert_service/alert_server.py
 ```
 
 _Run the main script:_</br>

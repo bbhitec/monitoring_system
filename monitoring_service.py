@@ -42,7 +42,7 @@ class SensorMonitoringService:
     async def start_service(self):
         try:
             tasks = [asyncio.create_task(sensor_monitor.start_monitoring()) for sensor_monitor in self.sensor_monitors]
-            await asyncio.gather(*tasks)
+            await asyncio.gather(*tasks)    # we can further use TaskPool here for a more elegant error handling
         except requests.ConnectionError:
             # handle server stop or disconnection
             logger(f"Alert server connection error. Exiting...")
